@@ -68,7 +68,7 @@ public class FileTools {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath)) {
             for (Path file : stream) {
                 if (Files.isDirectory(file)) {
-                    deleteRecursive(file); // folder is deleted if it is empty
+                    deleteRecursive(file); // folder is deleted only if it is empty
                 } else {
                     Files.delete(file);
                 }
@@ -180,7 +180,7 @@ public class FileTools {
      */
     public static final void removeFile(String file, String rootDirectory) {
         // Remove a file on the local machine
-        if (file.equalsIgnoreCase("") || file == null) {
+        if (file.equalsIgnoreCase("")) {
             logger.info("no file to remove");
         }
         File dir = new File(rootDirectory);
@@ -195,6 +195,7 @@ public class FileTools {
             }
             File f = new File(filename);
             if (f.exists()) {
+                //TODO: manage the return value in order, for example, to display a message frame when a problem occurs 
                 f.delete();
                 logger.info("file remove {}", filename);
             } else {

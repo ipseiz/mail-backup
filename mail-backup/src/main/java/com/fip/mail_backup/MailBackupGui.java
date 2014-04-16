@@ -26,11 +26,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Description  Java application that performs a backup of Thunderbird data
+ * This class represents the main Java Swing frame 
+ * View and controller in the same class ????????????????
+ * Calls Model as needed.
+ * (Handles user interaction with listeners.)
  *
  * @author Fabien Ipseiz
- * @version 1.0
- *
  */
 public class MailBackupGui extends JFrame {
 
@@ -40,24 +41,10 @@ public class MailBackupGui extends JFrame {
     private boolean profileIsabelleSelected;
     private boolean profileNicolasSelected;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MailBackupGui frame = new MailBackupGui();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    
 
     /**
-     * Create the frame.
+     * Creates main frame.
      */
     public MailBackupGui() {
         setTitle("Thunderbird mail backup");
@@ -72,6 +59,7 @@ public class MailBackupGui extends JFrame {
 
         JMenuItem mntmExit = new JMenuItem("Exit");
         mntmExit.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
@@ -89,6 +77,7 @@ public class MailBackupGui extends JFrame {
 
         final JButton btnNewButton_1 = new JButton(" Save Profile");
         btnNewButton_1.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (!profileFabienSelected && !profileIsabelleSelected && !profileNicolasSelected) {
@@ -110,7 +99,7 @@ public class MailBackupGui extends JFrame {
                         FileTools.copyFolderToFolder(srcPath, destPath);
                     }
                 } catch (IOException exception) {
-                    exception.printStackTrace();
+//                    exception.printStackTrace();
                     JOptionPane.showMessageDialog(btnNewButton_1, exception.toString()
                             + " Fermer Thunderbird et essayez à nouveau",
                             "Erreur lors de la sauvegarde", 0);
@@ -120,6 +109,7 @@ public class MailBackupGui extends JFrame {
 
         final JButton btnNewButton_2 = new JButton("Delete backup");
         btnNewButton_2.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (!profileFabienSelected && !profileIsabelleSelected && !profileNicolasSelected) {
@@ -138,7 +128,7 @@ public class MailBackupGui extends JFrame {
                         FileTools.deleteRecursive(path);
                     }
                 } catch (IOException exception) {
-                    exception.printStackTrace();
+//                    exception.printStackTrace();
                     JOptionPane.showMessageDialog(btnNewButton_2, exception.toString(),
                             "Erreur lors de l'effacement du répertoire Thunderbird_Backup", 0);
                 }
@@ -148,6 +138,7 @@ public class MailBackupGui extends JFrame {
         final JCheckBox chckbxNewCheckBox = new JCheckBox("Profile Fabien", true);
 
         chckbxNewCheckBox.addItemListener(new ItemListener() {
+            @Override
             public void itemStateChanged(ItemEvent e) {
                 profileFabienSelected = chckbxNewCheckBox.isSelected();
             }
@@ -155,6 +146,7 @@ public class MailBackupGui extends JFrame {
 
         final JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Profile Isabelle");
         chckbxNewCheckBox_1.addItemListener(new ItemListener() {
+            @Override
             public void itemStateChanged(ItemEvent e) {
                 profileIsabelleSelected = chckbxNewCheckBox_1.isSelected();
             }
@@ -162,12 +154,13 @@ public class MailBackupGui extends JFrame {
 
         final JCheckBox chckbxNewCheckBox_2 = new JCheckBox("Profile Nicolas");
         chckbxNewCheckBox_2.addItemListener(new ItemListener() {
+            @Override
             public void itemStateChanged(ItemEvent e) {
                 profileNicolasSelected = chckbxNewCheckBox_2.isSelected();
             }
         });
 
-        JLabel lblSelectTheProfiles = new JLabel("Select the profiles to manage");
+        JLabel lblSelectTheProfiles = new JLabel("Select profiles to manage");
         lblSelectTheProfiles.setFont(new Font("Tahoma", Font.PLAIN, 12));
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
