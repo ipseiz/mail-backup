@@ -1,5 +1,6 @@
-package com.fip.mail_backup;
+package com.fip.mail_backup.view;
 
+import com.fip.mail_backup.common.FileTools;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -33,7 +34,7 @@ import java.nio.file.Paths;
  *
  * @author Fabien Ipseiz
  */
-public class MailBackupGui extends JFrame {
+public class MailBackupGui_old extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private final JPanel contentPane;
@@ -46,7 +47,7 @@ public class MailBackupGui extends JFrame {
     /**
      * Creates main frame.
      */
-    public MailBackupGui() {
+    public MailBackupGui_old() {
         setTitle("Thunderbird mail backup");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 330, 270);

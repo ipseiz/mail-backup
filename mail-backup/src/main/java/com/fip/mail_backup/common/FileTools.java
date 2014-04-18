@@ -1,4 +1,4 @@
-package com.fip.mail_backup;
+package com.fip.mail_backup.common;
 
 import java.nio.file.*;
 import java.io.File;
@@ -195,7 +195,7 @@ public class FileTools {
             }
             File f = new File(filename);
             if (f.exists()) {
-                //TODO: manage the return value in order, for example, to display a message frame when a problem occurs 
+                //TODO manage a return value in order, for example, to display a message frame when a problem occurs 
                 f.delete();
                 logger.info("file remove {}", filename);
             } else {
