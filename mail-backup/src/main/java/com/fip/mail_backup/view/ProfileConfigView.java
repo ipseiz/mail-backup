@@ -6,22 +6,93 @@
 
 package com.fip.mail_backup.view;
 
-import com.fip.mail_backup.model.ListProfileConfigModel;
+import com.fip.mail_backup.controller.ButtonsListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 /**
- *
+ * This frame manages editing/changing profile configuration (name and directory paths)
+ * Presentation only. No user actions.
+ * 
  * @author Fabien Ipseiz
  */
 public class ProfileConfigView extends JFrame {
 
     /**
      * Creates new form ProfileConfigView
-     * 
-     * @param listProfile
      */
-    public ProfileConfigView(ListProfileConfigModel listProfile) {
+    public ProfileConfigView() {
+        // initialize the form
         initComponents();
+    }
+    
+    /**
+     * Input the source directory with the selected directory path
+     *
+     * @param dirPath : String. A selected directory path.
+     */
+    public void setSrcText(String dirPath) {
+        srcTextField.setText(dirPath);
+    }
+
+    /**
+     * Input the target directory with the selected directory path
+     *
+     * @param dirPath : String. A selected directory path.
+     */
+    public void setTgtText(String dirPath) {
+        tgtTextField.setText(dirPath);
+    }
+
+    /**
+     * @return the source directory text
+     */
+    public String getSrcText() {
+        return srcTextField.getText();
+    }
+
+    /**
+     * @return the target directory text
+     */
+    public String getTgtText() {
+        return tgtTextField.getText();
+    }
+
+    /**
+     *
+     *
+     * @param l A list of buttons listener.
+     */
+    public void addButtonsListener(final ButtonsListener l) {
+
+        okButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                l.okPerformed(e);
+            }
+        });
+
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                l.cancelPerformed(e);
+            }
+        });
+
+        changeSrcButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                l.changeSrcPerformed(e);
+            }
+        });
+
+        changeTgtButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                l.changeTgtPerformed(e);
+            }
+        });
     }
 
     /**
@@ -36,14 +107,14 @@ public class ProfileConfigView extends JFrame {
         contentPane = new javax.swing.JPanel();
         profileNamePanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        nameTextField = new javax.swing.JTextField();
         srcRowPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        srcTextField = new javax.swing.JTextField();
         changeSrcButton = new javax.swing.JButton();
         tgtRowPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        tgtTextField = new javax.swing.JTextField();
         changeTgtButton = new javax.swing.JButton();
         buttonsPanel = new javax.swing.JPanel();
         okButton = new javax.swing.JButton();
@@ -60,12 +131,6 @@ public class ProfileConfigView extends JFrame {
 
         jLabel1.setText("Name:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout profileNamePanelLayout = new javax.swing.GroupLayout(profileNamePanel);
         profileNamePanel.setLayout(profileNamePanelLayout);
         profileNamePanelLayout.setHorizontalGroup(
@@ -74,7 +139,7 @@ public class ProfileConfigView extends JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(26, 26, 26)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         profileNamePanelLayout.setVerticalGroup(
@@ -83,7 +148,7 @@ public class ProfileConfigView extends JFrame {
                 .addContainerGap()
                 .addGroup(profileNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -92,7 +157,7 @@ public class ProfileConfigView extends JFrame {
 
         jLabel2.setText("Directory:");
 
-        jTextField2.setToolTipText("");
+        srcTextField.setToolTipText("");
 
         changeSrcButton.setActionCommand("Change");
         changeSrcButton.setLabel("Change");
@@ -105,7 +170,7 @@ public class ProfileConfigView extends JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(srcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(changeSrcButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -116,7 +181,7 @@ public class ProfileConfigView extends JFrame {
                 .addContainerGap()
                 .addGroup(srcRowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(srcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(changeSrcButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -125,7 +190,7 @@ public class ProfileConfigView extends JFrame {
 
         jLabel3.setText("Directory:");
 
-        jTextField3.setToolTipText("");
+        tgtTextField.setToolTipText("");
 
         changeTgtButton.setText("Change");
 
@@ -137,7 +202,7 @@ public class ProfileConfigView extends JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tgtTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(changeTgtButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -149,7 +214,7 @@ public class ProfileConfigView extends JFrame {
                 .addGroup(tgtRowPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(changeTgtButton)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tgtTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -224,10 +289,6 @@ public class ProfileConfigView extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel buttonsPanel;
@@ -238,12 +299,12 @@ public class ProfileConfigView extends JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField nameTextField;
     private javax.swing.JButton okButton;
     private javax.swing.JPanel profileNamePanel;
     private javax.swing.JPanel srcRowPanel;
+    private javax.swing.JTextField srcTextField;
     private javax.swing.JPanel tgtRowPanel;
+    private javax.swing.JTextField tgtTextField;
     // End of variables declaration//GEN-END:variables
 }

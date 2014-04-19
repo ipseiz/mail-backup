@@ -19,6 +19,10 @@ public class ListProfileConfigModel extends AbstractListModel<Object> {
 
     private final ArrayList<ProfileConfig> listProfileConfig = new ArrayList<>();
    
+//    public void initProfile(ProfileConfig profile) {
+//        listProfileConfig.add(new ProfileConfig("Fabien", "", ""));
+//    }
+    
     public void addProfile(ProfileConfig profile) {
         int index = listProfileConfig.size();
         listProfileConfig.add(profile);
@@ -33,16 +37,18 @@ public class ListProfileConfigModel extends AbstractListModel<Object> {
         }
     }
     
-    //TODO modifyProfile method
-    // search by profileName
-
+    public void changeProfile(int index, ProfileConfig profile) {
+        listProfileConfig.set(index, profile);
+        fireIntervalRemoved(this, index, index);
+    }
+    
     public ProfileConfig getElementWithName(String name) {
         for (int i=0; i < listProfileConfig.size(); i++){
             if (listProfileConfig.get(i).getProfileName().equals(name)) {
                 return listProfileConfig.get(i);
             }
         }
-        return null;   //????????????????????
+        return null;   
     }
     
     @Override
@@ -54,5 +60,5 @@ public class ListProfileConfigModel extends AbstractListModel<Object> {
     public ProfileConfig getElementAt(int index) {
         return listProfileConfig.get(index);
     }
-
+    
 }

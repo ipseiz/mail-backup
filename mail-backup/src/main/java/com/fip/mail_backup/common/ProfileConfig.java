@@ -2,35 +2,18 @@ package com.fip.mail_backup.common;
 // DirectoryPair.java
 
 /**
- * Represents source directory of a Thunderbird profile and target directory
- * where this profile is backuped
+ * Represents source directory of a Thunderbird profile, identified by a profile name, 
+ * and target directory where this profile is backuped
  *
  * @author Fabien Ipseiz
  */
 public class ProfileConfig {
 
-     /**
-     * The Thunderbird profile name.
-     */
+    /**
+    * The Thunderbird profile name.
+    */
     private String profileName;
 
-    /**
-     * Returns the name of the profile.
-     *
-     * @return profile name.
-     */
-    public String getProfileName() {
-        return profileName;
-    }
-    /**
-     * Sets the name of the profile.
-     *
-     * @param name : name of the profile.
-     */
-    public void setProfileName(String name) {
-        profileName = name;
-    }
-    
     /**
      * The source directory.
      */
@@ -54,6 +37,23 @@ public class ProfileConfig {
         this.tgtDir = tgtDir;
     }
 
+    /**
+     * Returns the name of the profile.
+     *
+     * @return profile name.
+     */
+    public String getProfileName() {
+        return profileName;
+    }
+    /**
+     * Sets the name of the profile.
+     *
+     * @param name : name of the profile.
+     */
+    public void setProfileName(String name) {
+        profileName = name;
+    }
+    
     /**
      * Returns the source directory.
      *

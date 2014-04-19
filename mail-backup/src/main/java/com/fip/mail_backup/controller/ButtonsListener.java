@@ -1,4 +1,4 @@
-package com.fip.mail_backup.view;
+package com.fip.mail_backup.controller;
 
 import java.awt.event.ActionEvent;
 
