@@ -27,7 +27,7 @@ public class ProfileConfigController implements ButtonsListener {
     private final ListProfileConfigModel profileConfigModel;
     
     /** SLF4J bound to logback-classic. */
-    private static final Logger logger = LoggerFactory.getLogger(FileTools.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProfileConfigController.class);
     
     //----------------------------------------------------------------------------
     // Le constructeur reçoit en paramètre les références du modèle et de la vue
@@ -44,7 +44,8 @@ public class ProfileConfigController implements ButtonsListener {
 
     @Override
     public void cancelPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        profileConfigView.setVisible(false);
+        profileConfigView.dispose();
     }
 
     /**
@@ -66,12 +67,16 @@ public class ProfileConfigController implements ButtonsListener {
             File file = chooser.getSelectedFile();
             // name of the selected file
             logger.info("Directory selected: " + file.getPath() + ".\n");
+            // view is updated with new file path
             profileConfigView.setSrcText(file.getPath());
         } else {
             logger.info("Open command cancelled by user.\n");
         }
     }
-
+    
+    //----------------------------------------------------------------------------
+    // Méthode appelée lorsque l'utilisateur clique sur le bouton "changeTgt"
+    //----------------------------------------------------------------------------
     @Override
     public void changeTgtPerformed(ActionEvent e) {
         // Create JFileChooser dialog panel:
@@ -86,10 +91,11 @@ public class ProfileConfigController implements ButtonsListener {
             // a file has been selected (button Select)
             File file = chooser.getSelectedFile();
             // name of the selected file
-            logger.info("Directory selected: " + file.getPath() + ".\n");
+            logger.debug("Directory selected: " + file.getPath() + ".\n");
+            // view is updated with new file path
             profileConfigView.setTgtText(file.getPath());
         } else {
-            logger.info("Open command cancelled by user.\n");
+            logger.debug("Open command cancelled by user.\n");
         }
     }
     

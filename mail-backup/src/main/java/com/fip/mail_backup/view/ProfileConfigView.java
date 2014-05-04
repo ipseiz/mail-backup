@@ -7,6 +7,7 @@
 package com.fip.mail_backup.view;
 
 import com.fip.mail_backup.controller.ButtonsListener;
+import com.fip.mail_backup.model.ListProfileConfigModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
@@ -19,10 +20,15 @@ import javax.swing.JFrame;
  */
 public class ProfileConfigView extends JFrame {
 
+    private final ListProfileConfigModel profileConfigModel;
+    
     /**
      * Creates new form ProfileConfigView
+     * 
+     * @param model
      */
-    public ProfileConfigView() {
+    public ProfileConfigView(ListProfileConfigModel model) {
+        profileConfigModel = model;
         // initialize the form
         initComponents();
     }
@@ -30,7 +36,7 @@ public class ProfileConfigView extends JFrame {
     /**
      * Input the source directory with the selected directory path
      *
-     * @param dirPath : String. A selected directory path.
+     * @param dirPath A selected directory path.
      */
     public void setSrcText(String dirPath) {
         srcTextField.setText(dirPath);
@@ -39,7 +45,7 @@ public class ProfileConfigView extends JFrame {
     /**
      * Input the target directory with the selected directory path
      *
-     * @param dirPath : String. A selected directory path.
+     * @param dirPath A selected directory path.
      */
     public void setTgtText(String dirPath) {
         tgtTextField.setText(dirPath);
