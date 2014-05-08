@@ -23,8 +23,7 @@ public class FileTools {
     }
 
     /**
-     * Check if a specified file path is a folder and create a folder if it does
-     * not exist.
+     * Check if a specified file path is a folder and create a folder if it does not exist.
      *
      * @param folderPath A folder path.
      * @throws java.io.IOException

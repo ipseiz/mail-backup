@@ -51,6 +51,15 @@ public class ListProfileConfigModel extends AbstractListModel<Object> {
         return null;   
     }
     
+    public int getIndexForName(String name) {
+        for (int i=0; i < listProfileConfig.size(); i++){
+            if (listProfileConfig.get(i).getProfileName().equals(name)) {
+                return i; 
+            }
+        }
+        return 99; // 99 error code = no matching name
+    }
+    
     @Override
     public int getSize() {
         return listProfileConfig.size();
