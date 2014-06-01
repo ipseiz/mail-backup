@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 
 /**
- * Model This model is completely independent of the user interface. It could as
- * easily be used by a command line or web interface.
+ * Model This model is completely independent of the user interface. 
+ * This class contains a list of ProfileConfig objects
  *
  * @author Fabien Ipseiz
  */
@@ -19,9 +19,9 @@ public class ListProfileConfigModel extends AbstractListModel<Object> {
 
     private final ArrayList<ProfileConfig> listProfileConfig = new ArrayList<>();
    
-//    public void initProfile(ProfileConfig profile) {
-//        listProfileConfig.add(new ProfileConfig("Fabien", "", ""));
-//    }
+    public ListProfileConfigModel(String profileName,String profileSource,String profileTarget){
+        listProfileConfig.add(new ProfileConfig(profileName,profileSource,profileTarget));
+    }
     
     public void addProfile(ProfileConfig profile) {
         int index = listProfileConfig.size();
@@ -58,6 +58,10 @@ public class ListProfileConfigModel extends AbstractListModel<Object> {
             }
         }
         return 99; // 99 error code = no matching name
+    }
+    
+     public String getNameAt(int index) {
+        return listProfileConfig.get(index).getProfileName();
     }
     
     @Override

@@ -5,6 +5,7 @@
  */
 package com.fip.mail_backup;
 
+import com.fip.mail_backup.model.ListProfileConfigModel;
 import com.fip.mail_backup.view.MailBackupGUI;
 import java.awt.EventQueue;
 
@@ -46,11 +47,17 @@ public class MailBackupMain {
             java.util.logging.Logger.getLogger(MailBackupGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
+        
+        /* Create and initialize the list of profiles (model) */
+        final ListProfileConfigModel model = new ListProfileConfigModel("Profile Fabien", "", "");
+        
+        /* Create the form */
+        final MailBackupGUI view = new MailBackupGUI(model);
+        
+        /* Display the form */
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MailBackupGUI().setVisible(true);
+                view.setVisible(true);
             }
         });
     }
