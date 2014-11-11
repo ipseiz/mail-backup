@@ -49,13 +49,14 @@ public class MailBackupMain {
         //</editor-fold>
         
         /* Create and initialize the list of profiles (model) */
-        final ListProfileConfigModel model = new ListProfileConfigModel("Profile Fabien", "", "");
+        final ListProfileConfigModel model = new ListProfileConfigModel("Profile Fabien", "F:\\Utilisateurs\\Fabien\\Documents", "");
         
         /* Create the form */
         final MailBackupGUI view = new MailBackupGUI(model);
         
         /* Display the form */
         EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 view.setVisible(true);
             }

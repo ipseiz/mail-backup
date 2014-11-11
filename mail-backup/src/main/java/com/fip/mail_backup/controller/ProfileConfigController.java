@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @author Fabien Ipseiz
  */
-public class ProfileConfigController implements ButtonsListener {
+public class ProfileConfigController {
 
     private final ProfileConfigView profileConfigView;
     private final ListProfileConfigModel profileConfigModel;
@@ -51,9 +51,8 @@ public class ProfileConfigController implements ButtonsListener {
      * 
      * @param e action on OK button
      */
-    @Override
     public void okPerformed(ActionEvent e) {
-        ProfileConfig profileConfig = new ProfileConfig(profileConfigView.getName(), 
+        ProfileConfig profileConfig = new ProfileConfig(profileConfigView.getNameText(), 
                 profileConfigView.getSrcText(), profileConfigView.getTgtText());
         
         // check if a specified file path is a folder and create a folder if it does not exist
@@ -64,7 +63,8 @@ public class ProfileConfigController implements ButtonsListener {
             logger.error("An error occurs during Directory creation process");
         }
         // update selected profile config in the list of profiles  
-        int index = profileConfigModel.getIndexForName(profileConfigView.getName());
+        int index = profileConfigModel.getIndexForName(profileConfigView.getNameText());
+        logger.info("Index: " + index + " - name: " + profileConfigView.getNameText());
         profileConfigModel.changeProfile(index,profileConfig);
         
         // close the Profile Configuration Frame
@@ -77,18 +77,19 @@ public class ProfileConfigController implements ButtonsListener {
      * 
      * @param e action on Cancel button
      */
-    @Override
     public void cancelPerformed(ActionEvent e) {
         profileConfigView.setVisible(false);
         profileConfigView.dispose();
     }
-
+    
+    //----------------------------------------------------------------------------
+    // Méthode appelée lorsque l'utilisateur clique sur le bouton "changeSrc"
+    //----------------------------------------------------------------------------
     /**
      * Select the path corresponding on the Thunderbird profile to backup
      * 
      * @param e action on Change button
      */
-    @Override
     public void changeSrcPerformed(ActionEvent e) {
         // Create JFileChooser dialog panel:
         JFileChooser chooser = new JFileChooser();
@@ -118,7 +119,6 @@ public class ProfileConfigController implements ButtonsListener {
      * 
      * @param e action on Change button
      */
-    @Override
     public void changeTgtPerformed(ActionEvent e) {
         // Create JFileChooser dialog panel:
         JFileChooser chooser = new JFileChooser();

@@ -51,7 +51,6 @@ public class MailBackupGUI extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Thunderbird Mail Backup");
-        setAlwaysOnTop(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Select profiles to backup"));
         jPanel1.setName(""); // NOI18N

@@ -7,10 +7,8 @@
 package com.fip.mail_backup.view;
 
 import com.fip.mail_backup.common.ProfileConfig;
-import com.fip.mail_backup.controller.ButtonsListener;
+import com.fip.mail_backup.controller.ProfileConfigController;
 import com.fip.mail_backup.model.ListProfileConfigModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 /**
@@ -28,6 +26,7 @@ public class ProfileConfigView extends JFrame {
      * Creates new form ProfileConfigView
      * 
      * @param model
+     * @param index
      */
     public ProfileConfigView(ListProfileConfigModel model, int index) {
         this.model = model;
@@ -35,7 +34,7 @@ public class ProfileConfigView extends JFrame {
         
         // initialize the form
         initComponents();
-        this.setNameText(profile.getProfileName());  // à revoir ???
+        this.setNameText(profile.getProfileName());  
         this.setSrcText(profile.getSrc());
         this.setTgtText(profile.getTgt());
     }
@@ -82,41 +81,12 @@ public class ProfileConfigView extends JFrame {
     }
 
     /**
-     *
-     *
-     * @param l A list of buttons listener.
+     * @return the target directory text
      */
-    public void addButtonsListener(final ButtonsListener l) {
-
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                l.okPerformed(e);
-            }
-        });
-
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                l.cancelPerformed(e);
-            }
-        });
-
-        changeSrcButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                l.changeSrcPerformed(e);
-            }
-        });
-
-        changeTgtButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                l.changeTgtPerformed(e);
-            }
-        });
+    public String getNameText() {
+        return nameTextField.getText();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -139,10 +109,10 @@ public class ProfileConfigView extends JFrame {
         tgtTextField = new javax.swing.JTextField();
         changeTgtButton = new javax.swing.JButton();
         buttonsPanel = new javax.swing.JPanel();
-        cancelButton = new javax.swing.JButton();
         okButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Configure Profile");
         setResizable(false);
 
@@ -151,6 +121,8 @@ public class ProfileConfigView extends JFrame {
         profileNamePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Profile name"));
 
         jLabel1.setText("Name:");
+
+        nameTextField.setEditable(false);
 
         javax.swing.GroupLayout profileNamePanelLayout = new javax.swing.GroupLayout(profileNamePanel);
         profileNamePanel.setLayout(profileNamePanelLayout);
@@ -170,7 +142,7 @@ public class ProfileConfigView extends JFrame {
                 .addGroup(profileNamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         srcRowPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Source directory"));
@@ -180,8 +152,13 @@ public class ProfileConfigView extends JFrame {
 
         srcTextField.setToolTipText("");
 
-        changeSrcButton.setActionCommand("Change");
+        changeSrcButton.setActionCommand("change");
         changeSrcButton.setLabel("Change");
+        changeSrcButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeSrcButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout srcRowPanelLayout = new javax.swing.GroupLayout(srcRowPanel);
         srcRowPanel.setLayout(srcRowPanelLayout);
@@ -204,7 +181,7 @@ public class ProfileConfigView extends JFrame {
                     .addComponent(jLabel2)
                     .addComponent(srcTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(changeSrcButton))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tgtRowPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Target directory"));
@@ -214,6 +191,11 @@ public class ProfileConfigView extends JFrame {
         tgtTextField.setToolTipText("");
 
         changeTgtButton.setText("Change");
+        changeTgtButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeTgtButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout tgtRowPanelLayout = new javax.swing.GroupLayout(tgtRowPanel);
         tgtRowPanel.setLayout(tgtRowPanelLayout);
@@ -236,38 +218,42 @@ public class ProfileConfigView extends JFrame {
                     .addComponent(jLabel3)
                     .addComponent(changeTgtButton)
                     .addComponent(tgtTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        okButton.setText("OK");
+        okButton.setMaximumSize(new java.awt.Dimension(65, 23));
+        okButton.setMinimumSize(new java.awt.Dimension(65, 23));
+        okButton.setPreferredSize(new java.awt.Dimension(65, 23));
+        okButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
+
         cancelButton.setText("Cancel");
-        cancelButton.setSelected(true);
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        okButton.setText("OK");
-        okButton.setMaximumSize(new java.awt.Dimension(65, 23));
-        okButton.setMinimumSize(new java.awt.Dimension(65, 23));
-        okButton.setPreferredSize(new java.awt.Dimension(65, 23));
-
         javax.swing.GroupLayout buttonsPanelLayout = new javax.swing.GroupLayout(buttonsPanel);
         buttonsPanel.setLayout(buttonsPanelLayout);
         buttonsPanelLayout.setHorizontalGroup(
             buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonsPanelLayout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
-                .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(116, 116, 116))
+                .addGap(146, 146, 146)
+                .addComponent(okButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cancelButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         buttonsPanelLayout.setVerticalGroup(
             buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(cancelButton)
-                .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(okButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelButton))
         );
 
         javax.swing.GroupLayout contentPaneLayout = new javax.swing.GroupLayout(contentPane);
@@ -287,13 +273,14 @@ public class ProfileConfigView extends JFrame {
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentPaneLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(profileNamePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(profileNamePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(srcRowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(srcRowPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tgtRowPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tgtRowPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(buttonsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -314,10 +301,28 @@ public class ProfileConfigView extends JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void changeSrcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeSrcButtonActionPerformed
+        ProfileConfigController profileController = new ProfileConfigController(model,this);
+        profileController.changeSrcPerformed(evt);
+    }//GEN-LAST:event_changeSrcButtonActionPerformed
+
+    private void changeTgtButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeTgtButtonActionPerformed
+        ProfileConfigController profileController = new ProfileConfigController(model,this);
+        profileController.changeTgtPerformed(evt);
+        
+    }//GEN-LAST:event_changeTgtButtonActionPerformed
+
+    private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
+        ProfileConfigController profileController = new ProfileConfigController(model,this);
+        profileController.okPerformed(evt);
+    }//GEN-LAST:event_okButtonActionPerformed
+
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        // TODO add your handling code here:
+        ProfileConfigController profileController = new ProfileConfigController(model,this);
+        profileController.cancelPerformed(evt);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     
@@ -338,4 +343,8 @@ public class ProfileConfigView extends JFrame {
     private javax.swing.JPanel tgtRowPanel;
     private javax.swing.JTextField tgtTextField;
     // End of variables declaration//GEN-END:variables
+
+    void isAlwaysOnTop(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
