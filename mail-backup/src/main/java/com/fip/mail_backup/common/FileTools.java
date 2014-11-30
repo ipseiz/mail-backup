@@ -77,7 +77,7 @@ public class FileTools {
         }
 
         Files.delete(folderPath);
-        logger.info("folder {}", folderPath, " and all it contents are removed ");
+        logger.info("folder {} and all it contents are removed", folderPath);
     }
 
     /**
@@ -111,7 +111,7 @@ public class FileTools {
      * @param dst Destination file path.
      */
     public static final void moveFile(String src, String dst) {
-        logger.info("move process");
+        logger.debug("move process started");
         final Path srcPath = Paths.get(src);
         final Path destPath = Paths.get(dst);
         try {
@@ -119,6 +119,7 @@ public class FileTools {
         } catch (IOException e) {
             logger.error("move error {}", e);
         }
+        logger.debug("move process done");
     }
 
     /**
@@ -128,7 +129,7 @@ public class FileTools {
      * @param dst Destination file path.
      */
     public static final void copy(String src, String dst) {
-        logger.info("copy process");
+        logger.debug("copy process started");
         final Path srcPath = Paths.get(src);
         final Path destPath = Paths.get(dst);
         try {

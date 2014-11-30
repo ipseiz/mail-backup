@@ -21,6 +21,7 @@ public class MailBackupGUI extends JFrame {
     
     /**
      * Creates new form MailBackupGUI (main frame)
+     * @param model
      */
     public MailBackupGUI(ListProfileConfigModel model) {
         this.model = model;

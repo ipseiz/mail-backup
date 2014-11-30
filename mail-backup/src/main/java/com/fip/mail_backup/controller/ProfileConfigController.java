@@ -60,11 +60,11 @@ public class ProfileConfigController {
             FileTools.createFolder(profileConfigView.getSrcText());
             createFolder(profileConfigView.getTgtText());
         } catch (IOException ioe) {
-            logger.error("An error occurs during Directory creation process");
+            logger.error("An error occurs during Directory creation process ", ioe);
         }
         // update selected profile config in the list of profiles  
         int index = profileConfigModel.getIndexForName(profileConfigView.getNameText());
-        logger.info("Index: " + index + " - name: " + profileConfigView.getNameText());
+        logger.info("Index: {} - name: {}", index, profileConfigView.getNameText());
         profileConfigModel.changeProfile(index,profileConfig);
         
         // close the Profile Configuration Frame
@@ -103,7 +103,7 @@ public class ProfileConfigController {
             // a file has been selected (button Select)
             File file = chooser.getSelectedFile();
             // name of the selected file
-            logger.info("Directory selected: " + file.getPath() + ".\n");
+            logger.info("Directory selected: {}.\n", file.getPath());
             // view is updated with new file path
             profileConfigView.setSrcText(file.getPath());
         } else {
@@ -132,7 +132,7 @@ public class ProfileConfigController {
             // a file has been selected (button Select)
             File file = chooser.getSelectedFile();
             // name of the selected file
-            logger.debug("Directory selected: " + file.getPath() + ".\n");
+            logger.debug("Directory selected: {}.\n", file.getPath());
             // view is updated with new file path
             profileConfigView.setTgtText(file.getPath());
         } else {
