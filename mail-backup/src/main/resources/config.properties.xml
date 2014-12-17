@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>---config---</comment>
-<entry key="source_1">F:\\Utilisateurs\\Fabien\\Documents\\Temp</entry>
-<entry key="profile_1">Fabien</entry>
-<entry key="target_1">F:\\Utilisateurs\\Fabien\\Documents\\Temp2</entry>
+<entry key="target_0">F:\\Utilisateurs\\Fabien\\Documents\\Temp2</entry>
+<entry key="source_0">F:\\Utilisateurs\\Fabien\\Documents\\Temp</entry>
+<entry key="profile_0">Fabien</entry>
 </properties>

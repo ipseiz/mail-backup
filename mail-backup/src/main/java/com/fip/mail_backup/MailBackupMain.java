@@ -11,13 +11,9 @@ import com.fip.mail_backup.model.ListProfileConfigModel;
 import com.fip.mail_backup.view.MailBackupGUI;
 import java.awt.EventQueue;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import static java.lang.System.getProperty;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +26,8 @@ import org.slf4j.LoggerFactory;
  */
 public class MailBackupMain {
 
+    public static final String CONFIG_PATH = "F:\\Utilisateurs\\Fabien\\NetBeansProjects\\mail-backup\\mail-backup\\src\\main\\resources\\config.properties.xml";
+    
     /**
      * SLF4J bound to logback-classic.
      */
@@ -66,39 +64,27 @@ public class MailBackupMain {
         //</editor-fold>
 
         /* Create and initialize the list of profiles (model) */
-        final String configPath = "F:\\Utilisateurs\\Fabien\\NetBeansProjects\\mail-backup\\mail-backup\\src\\main\\resources\\config.properties.xml";
         ArrayList<ProfileConfig> initialListProfileConfig = new ArrayList<>();
         
         Properties properties = new Properties();
         // load xml config file in the properties table
-        try (FileInputStream in = new FileInputStream(configPath)) {
+        try (FileInputStream in = new FileInputStream(CONFIG_PATH)) {
             properties.loadFromXML(in);
         } catch (IOException e) {
             logger.error("Unable to load config file");
         }
         // create the list of profile from data of the properties table
-        ProfileConfig config_1 = new ProfileConfig(properties.getProperty("profile_1", "Profile Template"),
-                properties.getProperty("source_1", "F:\\Utilisateurs\\Fabien\\Documents\\Temp"),
-                properties.getProperty("target_1", "F:\\Utilisateurs\\Fabien\\Documents\\Temp2"));
-        ProfileConfig config_2 = new ProfileConfig(properties.getProperty("profile_2"),
-                properties.getProperty("source_2"),properties.getProperty("target_2"));
-        ProfileConfig config_3 = new ProfileConfig(properties.getProperty("profile_3"),
-                properties.getProperty("source_3"),properties.getProperty("target_3"));
+        ProfileConfig config_0 = new ProfileConfig(properties.getProperty("profile_0", "Fabien"),
+                properties.getProperty("source_0", "F:\\Utilisateurs\\Fabien\\Documents\\Temp"),
+                properties.getProperty("target_0", "F:\\Utilisateurs\\Fabien\\Documents\\Temp2"));
+        ProfileConfig config_1 = new ProfileConfig(properties.getProperty("profile_1", "Isabelle"),
+                properties.getProperty("source_1", ""),properties.getProperty("target_1", ""));
+        ProfileConfig config_2 = new ProfileConfig(properties.getProperty("profile_2", "Nicolas"),
+                properties.getProperty("source_2", ""),properties.getProperty("target_2", ""));
+        initialListProfileConfig.add(config_0);
         initialListProfileConfig.add(config_1);
         initialListProfileConfig.add(config_2);
-        initialListProfileConfig.add(config_3);
         
-        //reading stuff
-//        properties.setProperty("profile_2", "un nouveau profile");
-//        FileOutputStream out;
-//        try {
-//            out = new FileOutputStream(configPath);
-//            properties.storeToXML(out, "---config---");
-//            out.close();
-//        } catch (IOException e) {
-//            System.err.println("Unable to write config file.");
-//        }
-
         final ListProfileConfigModel model = new ListProfileConfigModel(initialListProfileConfig);
         
         /* Create the form */

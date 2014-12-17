@@ -44,7 +44,7 @@ public class ProfileConfigView extends JFrame {
      *
      * @param dirPath A selected directory path.
      */
-    public void setSrcText(String dirPath) {
+    public final void setSrcText(String dirPath) {
         srcTextField.setText(dirPath);
     }
 
@@ -53,7 +53,7 @@ public class ProfileConfigView extends JFrame {
      *
      * @param dirPath A selected directory path.
      */
-    public void setTgtText(String dirPath) {
+    public final void setTgtText(String dirPath) {
         tgtTextField.setText(dirPath);
     }
 
@@ -62,7 +62,7 @@ public class ProfileConfigView extends JFrame {
      *
      * @param name A selected profile name.
      */
-    public void setNameText(String name) {
+    public final void setNameText(String name) {
         nameTextField.setText(name);
     }
     

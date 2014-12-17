@@ -6,6 +6,7 @@
 
 package com.fip.mail_backup.controller;
 
+import static com.fip.mail_backup.MailBackupMain.CONFIG_PATH;
 import com.fip.mail_backup.common.FileTools;
 import static com.fip.mail_backup.common.FileTools.createFolder;
 import com.fip.mail_backup.common.ProfileConfig;
@@ -13,7 +14,9 @@ import com.fip.mail_backup.model.ListProfileConfigModel;
 import com.fip.mail_backup.view.ProfileConfigView;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Properties;
 import javax.swing.JFileChooser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,6 +69,20 @@ public class ProfileConfigController {
         int index = profileConfigModel.getIndexForName(profileConfigView.getNameText());
         logger.info("Index: {} - name: {}", index, profileConfigView.getNameText());
         profileConfigModel.changeProfile(index,profileConfig);
+        
+        // update the configuration of the profile in the properties table
+        Properties properties = new Properties();
+        FileOutputStream out;
+        properties.setProperty("profile_" + index, profileConfigView.getNameText());
+        properties.setProperty("source_" + index, profileConfigView.getSrcText());
+        properties.setProperty("target_" + index, profileConfigView.getTgtText());
+        try {
+            out = new FileOutputStream(CONFIG_PATH);
+            properties.storeToXML(out, "---config---");
+            out.close();
+        } catch (IOException ioe) {
+            logger.error("Unable to write config file.");
+        }
         
         // close the Profile Configuration Frame
         profileConfigView.setVisible(false);

@@ -6,9 +6,7 @@
 
 package com.fip.mail_backup.view;
 
-import com.fip.mail_backup.common.ProfileConfig;
 import com.fip.mail_backup.model.ListProfileConfigModel;
-import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 /**
@@ -18,6 +16,9 @@ import javax.swing.JFrame;
 public class MailBackupGUI extends JFrame {
 
     private final ListProfileConfigModel model;
+    private boolean checkbox1;
+    private boolean checkbox2;
+    private boolean checkbox3;
     
     /**
      * Creates new form MailBackupGUI (main frame)
@@ -56,6 +57,18 @@ public class MailBackupGUI extends JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Select profiles to backup"));
         jPanel1.setName(""); // NOI18N
 
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
+
         jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox3ActionPerformed(evt);
@@ -70,8 +83,18 @@ public class MailBackupGUI extends JFrame {
         });
 
         butSettings2.setText("Settings");
+        butSettings2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butSettings2ActionPerformed(evt);
+            }
+        });
 
         butSettings3.setText("Settings");
+        butSettings3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butSettings3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,8 +151,18 @@ public class MailBackupGUI extends JFrame {
         jPanel1.getAccessibleContext().setAccessibleName("");
 
         butSave.setText("Save Profiles");
+        butSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butSaveActionPerformed(evt);
+            }
+        });
 
         butDelete.setText("Delete Backup");
+        butDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -178,15 +211,42 @@ public class MailBackupGUI extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void butSetting1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSetting1ActionPerformed
-        //TODO
-        // call ProfileConfigVew 
+        // call ProfileConfigView for profile index 0
         ProfileConfigView profileView = new ProfileConfigView(model,0);
         profileView.setVisible(true);
     }//GEN-LAST:event_butSetting1ActionPerformed
 
+    private void butSettings2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSettings2ActionPerformed
+        // call ProfileConfigView for profile index 1
+        ProfileConfigView profileView = new ProfileConfigView(model,1);
+        profileView.setVisible(true);
+    }//GEN-LAST:event_butSettings2ActionPerformed
+
+    private void butSettings3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSettings3ActionPerformed
+        // call ProfileConfigView for profile index 2
+        ProfileConfigView profileView = new ProfileConfigView(model,2);
+        profileView.setVisible(true);
+    }//GEN-LAST:event_butSettings3ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        checkbox1 = !checkbox1;
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void butSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_butSaveActionPerformed
+
+    private void butDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_butDeleteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butDelete;
