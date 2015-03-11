@@ -19,6 +19,7 @@ import javax.swing.JFrame;
  */
 public class ProfileConfigView extends JFrame {
 
+    private final int index;    
     private final ListProfileConfigModel model;
     private final ProfileConfig profile;
     
@@ -29,6 +30,7 @@ public class ProfileConfigView extends JFrame {
      * @param index
      */
     public ProfileConfigView(ListProfileConfigModel model, int index) {
+        this.index = index;
         this.model = model;
         this.profile = model.getElementAt(index);
         
@@ -121,8 +123,6 @@ public class ProfileConfigView extends JFrame {
         profileNamePanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Profile name"));
 
         jLabel1.setText("Name:");
-
-        nameTextField.setEditable(false);
 
         javax.swing.GroupLayout profileNamePanelLayout = new javax.swing.GroupLayout(profileNamePanel);
         profileNamePanel.setLayout(profileNamePanelLayout);
@@ -305,23 +305,23 @@ public class ProfileConfigView extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void changeSrcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeSrcButtonActionPerformed
-        ProfileConfigController profileController = new ProfileConfigController(model,this);
+        ProfileConfigController profileController = new ProfileConfigController(index,model,this);
         profileController.changeSrcPerformed(evt);
     }//GEN-LAST:event_changeSrcButtonActionPerformed
 
     private void changeTgtButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeTgtButtonActionPerformed
-        ProfileConfigController profileController = new ProfileConfigController(model,this);
+        ProfileConfigController profileController = new ProfileConfigController(index,model,this);
         profileController.changeTgtPerformed(evt);
         
     }//GEN-LAST:event_changeTgtButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        ProfileConfigController profileController = new ProfileConfigController(model,this);
+        ProfileConfigController profileController = new ProfileConfigController(index,model,this);
         profileController.okPerformed(evt);
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        ProfileConfigController profileController = new ProfileConfigController(model,this);
+        ProfileConfigController profileController = new ProfileConfigController(index,model,this);
         profileController.cancelPerformed(evt);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
