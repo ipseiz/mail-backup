@@ -28,6 +28,8 @@ public class MailBackupGUI extends JFrame {
         this.model = model;
         initComponents();
         jCheckBox1.setText(model.getNameAt(0));
+        jCheckBox2.setText(model.getNameAt(1));
+        jCheckBox3.setText(model.getNameAt(2));
     }
 
     /**
@@ -233,11 +235,11 @@ public class MailBackupGUI extends JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        // TODO add your handling code here:
+        checkbox2 = !checkbox2;
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
-        // TODO add your handling code here:
+        checkbox3 = !checkbox3;
     }//GEN-LAST:event_jCheckBox3ActionPerformed
 
     private void butSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSaveActionPerformed

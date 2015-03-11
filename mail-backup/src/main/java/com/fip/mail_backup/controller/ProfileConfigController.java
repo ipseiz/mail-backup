@@ -28,7 +28,8 @@ import org.slf4j.LoggerFactory;
  * @author Fabien Ipseiz
  */
 public class ProfileConfigController {
-
+    
+    private final int index;
     private final ProfileConfigView profileConfigView;
     private final ListProfileConfigModel profileConfigModel;
     
@@ -41,12 +42,14 @@ public class ProfileConfigController {
     /**
      * Creates Controller (of the MVC pattern)
      * 
+     * @param index the index of the profile 
      * @param model the model object reference
      * @param view  the View object reference
      */
-    public ProfileConfigController(ListProfileConfigModel model, ProfileConfigView view) {
+    public ProfileConfigController(int index, ListProfileConfigModel model, ProfileConfigView view) {
         profileConfigModel = model;
         profileConfigView = view;
+        this.index=index;
     }
     
     /**
@@ -66,16 +69,16 @@ public class ProfileConfigController {
             logger.error("An error occurs during Directory creation process ", ioe);
         }
         // update selected profile config in the list of profiles  
-        int index = profileConfigModel.getIndexForName(profileConfigView.getNameText());
         logger.info("Index: {} - name: {}", index, profileConfigView.getNameText());
         profileConfigModel.changeProfile(index,profileConfig);
         
         // update the configuration of the profile in the properties table
         Properties properties = new Properties();
         FileOutputStream out;
-        properties.setProperty("profile_" + index, profileConfigView.getNameText());
-        properties.setProperty("source_" + index, profileConfigView.getSrcText());
-        properties.setProperty("target_" + index, profileConfigView.getTgtText());
+            properties.setProperty("profile_" + index, profileConfigView.getNameText());
+            properties.setProperty("source_" + index, profileConfigView.getSrcText());
+            properties.setProperty("target_" + index, profileConfigView.getTgtText());
+        
         try {
             out = new FileOutputStream(CONFIG_PATH);
             properties.storeToXML(out, "---config---");

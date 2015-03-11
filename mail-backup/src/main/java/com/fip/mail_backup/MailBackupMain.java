@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MailBackupMain {
 
-    public static final String CONFIG_PATH = "F:\\Utilisateurs\\Fabien\\NetBeansProjects\\mail-backup\\mail-backup\\src\\main\\resources\\config.properties.xml";
+    public static final String CONFIG_PATH = "C:\\Users\\ipseiz\\Documents\\NetBeansProjects\\mail-backup\\mail-backup\\src\\main\\resources\\config.properties.xml";
     
     /**
      * SLF4J bound to logback-classic.
@@ -63,9 +63,6 @@ public class MailBackupMain {
         }
         //</editor-fold>
 
-        /* Create and initialize the list of profiles (model) */
-        ArrayList<ProfileConfig> initialListProfileConfig = new ArrayList<>();
-        
         Properties properties = new Properties();
         // load xml config file in the properties table
         try (FileInputStream in = new FileInputStream(CONFIG_PATH)) {
@@ -73,19 +70,8 @@ public class MailBackupMain {
         } catch (IOException e) {
             logger.error("Unable to load config file");
         }
-        // create the list of profile from data of the properties table
-        ProfileConfig config_0 = new ProfileConfig(properties.getProperty("profile_0", "Fabien"),
-                properties.getProperty("source_0", "F:\\Utilisateurs\\Fabien\\Documents\\Temp"),
-                properties.getProperty("target_0", "F:\\Utilisateurs\\Fabien\\Documents\\Temp2"));
-        ProfileConfig config_1 = new ProfileConfig(properties.getProperty("profile_1", "Isabelle"),
-                properties.getProperty("source_1", ""),properties.getProperty("target_1", ""));
-        ProfileConfig config_2 = new ProfileConfig(properties.getProperty("profile_2", "Nicolas"),
-                properties.getProperty("source_2", ""),properties.getProperty("target_2", ""));
-        initialListProfileConfig.add(config_0);
-        initialListProfileConfig.add(config_1);
-        initialListProfileConfig.add(config_2);
-        
-        final ListProfileConfigModel model = new ListProfileConfigModel(initialListProfileConfig);
+        /* Create and initialize the list of profiles (model) */
+        ListProfileConfigModel model = initModel(properties);
         
         /* Create the form */
         final MailBackupGUI view = new MailBackupGUI(model);
@@ -97,5 +83,28 @@ public class MailBackupMain {
                 view.setVisible(true);
             }
         });
+    }
+
+    /**
+     * Create the list of profile from data of the properties table.
+     *
+     * @param properties
+     */
+    private static ListProfileConfigModel initModel(Properties properties) {
+        
+        ProfileConfig config_0 = new ProfileConfig(properties.getProperty("profile_0", "Fabien"),
+                properties.getProperty("source_0", "C:\\Users\\ipseiz\\Documents\\Temp"),
+                properties.getProperty("target_0", "C:\\Users\\ipseiz\\Documents\\Temp2"));
+        ProfileConfig config_1 = new ProfileConfig(properties.getProperty("profile_1", "Isabelle"),
+                properties.getProperty("source_1", ""),properties.getProperty("target_1", ""));
+        ProfileConfig config_2 = new ProfileConfig(properties.getProperty("profile_2", "Nicolas"),
+                properties.getProperty("source_2", ""),properties.getProperty("target_2", ""));
+        
+        ArrayList<ProfileConfig> initialListProfileConfig = new ArrayList<>();
+        initialListProfileConfig.add(config_0);
+        initialListProfileConfig.add(config_1);
+        initialListProfileConfig.add(config_2);
+        final ListProfileConfigModel model = new ListProfileConfigModel(initialListProfileConfig);
+        return model;
     }
 }
