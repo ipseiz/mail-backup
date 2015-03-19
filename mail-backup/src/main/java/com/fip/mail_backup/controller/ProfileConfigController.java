@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.fip.mail_backup.controller;
 
 import static com.fip.mail_backup.MailBackupMain.CONFIG_PATH;
@@ -22,45 +21,46 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Handles user interaction with listeners.
- * Calls View and Model as needed.
- * 
+ * Handles user interaction with listeners. Calls View and Model as needed.
+ *
  * @author Fabien Ipseiz
  */
 public class ProfileConfigController {
-    
+
     private final int index;
     private final ProfileConfigView profileConfigView;
     private final ListProfileConfigModel profileConfigModel;
-    
-    /** SLF4J bound to logback-classic. */
+
+    /**
+     * SLF4J bound to logback-classic.
+     */
     private static final Logger logger = LoggerFactory.getLogger(ProfileConfigController.class);
-    
+
     //----------------------------------------------------------------------------
     // Le constructeur reçoit en paramètre les références du modèle et de la vue
     //----------------------------------------------------------------------------
     /**
      * Creates Controller (of the MVC pattern)
-     * 
-     * @param index the index of the profile 
+     *
+     * @param index the index of the profile
      * @param model the model object reference
-     * @param view  the View object reference
+     * @param view the View object reference
      */
     public ProfileConfigController(int index, ListProfileConfigModel model, ProfileConfigView view) {
         profileConfigModel = model;
         profileConfigView = view;
-        this.index=index;
+        this.index = index;
     }
-    
+
     /**
      * Updating of the selected Thunderbird profile config
-     * 
+     *
      * @param e action on OK button
      */
     public void okPerformed(ActionEvent e) {
-        ProfileConfig profileConfig = new ProfileConfig(profileConfigView.getNameText(), 
+        ProfileConfig profileConfig = new ProfileConfig(profileConfigView.getNameText(),
                 profileConfigView.getSrcText(), profileConfigView.getTgtText());
-        
+
         // check if a specified file path is a folder and create a folder if it does not exist
         try {
             FileTools.createFolder(profileConfigView.getSrcText());
@@ -70,15 +70,17 @@ public class ProfileConfigController {
         }
         // update selected profile config in the list of profiles  
         logger.info("Index: {} - name: {}", index, profileConfigView.getNameText());
-        profileConfigModel.changeProfile(index,profileConfig);
-        
+        profileConfigModel.changeProfile(index, profileConfig);
+
         // update the configuration of the profile in the properties table
         Properties properties = new Properties();
+        for (int i = 0; i < 3; i++) {
+            properties.setProperty("profile_" + i, profileConfigModel.getElementAt(i).getProfileName());
+            properties.setProperty("source_" + i, profileConfigModel.getElementAt(i).getSrc());
+            properties.setProperty("target_" + i, profileConfigModel.getElementAt(i).getTgt());
+        }
+
         FileOutputStream out;
-            properties.setProperty("profile_" + index, profileConfigView.getNameText());
-            properties.setProperty("source_" + index, profileConfigView.getSrcText());
-            properties.setProperty("target_" + index, profileConfigView.getTgtText());
-        
         try {
             out = new FileOutputStream(CONFIG_PATH);
             properties.storeToXML(out, "---config---");
@@ -86,7 +88,8 @@ public class ProfileConfigController {
         } catch (IOException ioe) {
             logger.error("Unable to write config file.");
         }
-        
+        //TODO update MailBackupGUI view
+
         // close the Profile Configuration Frame
         profileConfigView.setVisible(false);
         profileConfigView.dispose();
@@ -94,20 +97,20 @@ public class ProfileConfigController {
 
     /**
      * Quit the Profile Configuration Frame without any change
-     * 
+     *
      * @param e action on Cancel button
      */
     public void cancelPerformed(ActionEvent e) {
         profileConfigView.setVisible(false);
         profileConfigView.dispose();
     }
-    
+
     //----------------------------------------------------------------------------
     // Méthode appelée lorsque l'utilisateur clique sur le bouton "changeSrc"
     //----------------------------------------------------------------------------
     /**
      * Select the path corresponding on the Thunderbird profile to backup
-     * 
+     *
      * @param e action on Change button
      */
     public void changeSrcPerformed(ActionEvent e) {
@@ -130,13 +133,13 @@ public class ProfileConfigController {
             logger.info("Open command cancelled by user.\n");
         }
     }
-    
+
     //----------------------------------------------------------------------------
     // Méthode appelée lorsque l'utilisateur clique sur le bouton "changeTgt"
     //----------------------------------------------------------------------------
     /**
      * Select the path where the Thunderbird profile will be saved
-     * 
+     *
      * @param e action on Change button
      */
     public void changeTgtPerformed(ActionEvent e) {
@@ -159,5 +162,5 @@ public class ProfileConfigController {
             logger.debug("Open command cancelled by user.\n");
         }
     }
-    
+
 }

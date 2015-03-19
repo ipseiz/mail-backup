@@ -26,8 +26,9 @@ import org.slf4j.LoggerFactory;
  */
 public class MailBackupMain {
 
-    public static final String CONFIG_PATH = "C:\\Users\\ipseiz\\Documents\\NetBeansProjects\\mail-backup\\mail-backup\\src\\main\\resources\\config.properties.xml";
-    
+    //public static final String CONFIG_PATH = "C:\\Users\\ipseiz\\Documents\\NetBeansProjects\\mail-backup\\mail-backup\\src\\main\\resources\\config.properties.xml";
+    public static final String CONFIG_PATH = "F:\\Utilisateurs\\Fabien\\NetBeansProjects\\mail-backup\\mail-backup\\src\\main\\resources\\config.properties.xml";
+
     /**
      * SLF4J bound to logback-classic.
      */
@@ -93,8 +94,8 @@ public class MailBackupMain {
     private static ListProfileConfigModel initModel(Properties properties) {
         
         ProfileConfig config_0 = new ProfileConfig(properties.getProperty("profile_0", "Fabien"),
-                properties.getProperty("source_0", "C:\\Users\\ipseiz\\Documents\\Temp"),
-                properties.getProperty("target_0", "C:\\Users\\ipseiz\\Documents\\Temp2"));
+                properties.getProperty("source_0", "C:\\Utilisateurs\\Fabien\\Documents\\Temp"),
+                properties.getProperty("target_0", "C:\\Utilisateurs\\Fabien\\Documents\\Temp2"));
         ProfileConfig config_1 = new ProfileConfig(properties.getProperty("profile_1", "Isabelle"),
                 properties.getProperty("source_1", ""),properties.getProperty("target_1", ""));
         ProfileConfig config_2 = new ProfileConfig(properties.getProperty("profile_2", "Nicolas"),
